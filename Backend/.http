@@ -1,0 +1,13 @@
+POST http://localhost:3000/api/v1/locations/update
+Content-Type: application/json
+
+{
+    "driverId": "driver_http_test",
+    "coordinates": {
+        "longitude": 77.5946,
+        "latitude": 12.9716
+    }
+}
+
+#####
+GET  http://localhost:3000/health
