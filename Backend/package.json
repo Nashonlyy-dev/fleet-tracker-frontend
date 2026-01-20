@@ -1,5 +1,6 @@
 {
   "name": "fleet-tracker",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",

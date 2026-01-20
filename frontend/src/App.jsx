@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+let port = import.meta.env.PORT || 3000;
 
+// 1. Connect to your Backend (ensure the port matches your server)
+const socket = io("http://localhost:3000");
+
+
+const App = () => {
+
+    const [drivers, setdriver] = useState({})
+
+    useEffect(() => {
+      socket.on("location-received", (data)=>{
+         console.log("new data revived", data);
+         
+         setdriver((prev) =>({
+            ...prev,
+            [data.driverId]: data
+         }))
+      })
+    
+      return () => {
+        socket.off("location recived");
+      }
+    },)
+    
+    
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div style={{ height: "100vh", width: "100vw" }}>
+      <MapContainer 
+        center={[18.5204, 73.8567]} // Default center (e.g., Pune, India)
+        zoom={13} 
+        style={{ height: "100%", width: "100%" }}
+      >
+        {/* 6. The "Tiles" (The actual map images) */}
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; OpenStreetMap contributors'
+        />
 
-export default App
+        {/* 7. Loop through the drivers object and create a marker for each */}
+        {Object.values(drivers).map((driver) => (
+          <Marker 
+            key={driver.driverId} 
+            position={[driver.coordinates.latitude, driver.coordinates.longitude]}
+          >
+            <Popup>
+              Driver: {driver.driverId}
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
+  );
+};
+
+export default App;
