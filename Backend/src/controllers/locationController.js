@@ -6,12 +6,14 @@ export const requestLocationUpdate = async (req, res) => {
     const { driverId, coordinates } = req.body;
     await saveLocation(driverId, coordinates);
 
-    io.emit('locationUpdate', {
-            driverId,
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude,
-            timestamp: new Date()
-        });
+ io.emit('location-received', {
+    driverId,
+    coordinates: {
+        latitude: coordinates.latitude,
+        longitude: coordinates.longitude
+    },
+    timestamp: new Date()
+});
 
     res.status(200).json({ message: "Location updated successfully." });
 
