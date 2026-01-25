@@ -1,5 +1,5 @@
 {
-  "name": "kseventytwo",
+  "name": "fleet-tracker",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4.1.14",
+    "dotenv": "^17.2.3",
     "gsap": "^3.13.0",
     "leaflet": "^1.9.4",
     "react": "^19.1.1",

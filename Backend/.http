@@ -1,11 +1,23 @@
+# POST http://localhost:3000/api/v1/locations/update
+# Content-Type: application/json
+
+# {
+#     "driverId": "driver_http_test",
+#     "coordinates": {
+#         "longitude": 77.5946,
+#         "latitude": 12.9716
+#     }
+# }
+
+### Update Driver Location to Mogok, Myanmar
 POST http://localhost:3000/api/v1/locations/update
 Content-Type: application/json
 
 {
-    "driverId": "driver_http_test",
+    "driverId": "truck_001",
     "coordinates": {
-        "longitude": 77.5946,
-        "latitude": 12.9716
+        "latitude": 22.9235,
+        "longitude": 96.5070
     }
 }
 
