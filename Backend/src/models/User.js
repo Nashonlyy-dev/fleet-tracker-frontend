@@ -1,29 +1,40 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
-        required: true
+        required: [true, "Please provide a name"],
+        trim: true
     },
-    email:{
+    email: {
         type: String,
-        required: true,
-        unique: true
+        required: [true, "Please provide an email"],
+        unique: true,
+        lowercase: true,
+        trim: true
     },
-    password:{
+    password: {
         type: String,
-        required: true
+        required: [true, "Please provide a password"],
+        minlength: 6
     },
-
-    role:{
+    role: {
         type: String,
-        enum: ['owner','driver'],
+        // Added 'admin' here so your System Admin works ⬇️
+        enum: ['owner', 'driver', 'admin'],
         default: 'driver'
     },
-    ownerId:{
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
+    ownerId: {
+        type: mongoose.Schema.Types.ObjectId, // Fixed to .Types.ObjectId for safety
+        ref: 'User',
+        default: null // Explicitly null for Owners and Admins
     }
-})
+}, { 
+    // Automatically creates 'createdAt' and 'updatedAt' fields
+    timestamps: true 
+});
 
-module.exports = mongoose.model('User', userSchema)
+// Index for faster performance when an Owner looks up their drivers
+userSchema.index({ ownerId: 1 });
+
+export default mongoose.model('User', userSchema);

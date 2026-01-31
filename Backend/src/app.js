@@ -3,6 +3,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import locationRoutes from './routes/locationRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import ownerRoutes from './routes/ownerRoutes.js'
 
 // Import routes (Ensure you add .js extension for ES Modules)
 // import locationRoutes from './routes/locationRoutes.js'; 
@@ -26,6 +29,9 @@ app.get('/health', (req, res) => {
 
 // 3. API Routes
 app.use('/api/v1/locations', locationRoutes);
+app.use('/api/v1/auth', authRoutes); // Example for auth routes
+app.use('/api/v1/admin', adminRoutes)
+app.use('/api/v1/owner', ownerRoutes)
 
 // 4. Global Error Handling Middleware (Catches all unhandled errors)
 app.use((err, req, res, next) => {

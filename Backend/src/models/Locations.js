@@ -7,6 +7,12 @@ const locationSchema = new mongoose.Schema({
     required: true ,
 
 },
+// Add this to your Location Schema
+status: {
+    type: String,
+    enum: ['online', 'offline'],
+    default: 'offline'
+},
   location: {
     type: { type: String, enum: ["Point"], required: true },
     coordinates: { type: [Number], required: true }, // [longitude, latitude]
