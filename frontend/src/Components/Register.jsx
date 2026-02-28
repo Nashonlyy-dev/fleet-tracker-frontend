@@ -18,7 +18,7 @@ const Register = () => {
         setError("");
         setLoading(true);
         try {
-            await axios.post('http://localhost:3000/api/v1/auth/register', formData);
+            await axios.post('fleet-tracker-backend-production.up.railway.app/api/v1/auth/register', formData);
             // Using a clean navigation instead of a blocking alert is better for UX
             navigate('/login', { state: { message: "Account created! You can now log in." } });
         } catch (err) {
