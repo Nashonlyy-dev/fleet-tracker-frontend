@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     // 3. Professional Login Function
     const login = async (email, password) => {
         try {
-            const { data } = await axios.post('http://localhost:3000/api/v1/auth/login', { email, password });
+            const { data } = await axios.post('fleet-tracker-backend-production.up.railway.app/api/v1/auth/login', { email, password });
             
             // Backend should return: { token: "...", user: { name: "...", role: "..." } }
             const userData = data.user || data;
