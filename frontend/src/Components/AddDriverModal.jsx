@@ -10,7 +10,7 @@ const AddDriverModal = ({ onClose, refresh }) => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:3000/api/v1/owner/add-driver', formData, {
+            await axios.post('fleet-tracker-backend-production.up.railway.app/api/v1/owner/add-driver', formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             refresh(); 
