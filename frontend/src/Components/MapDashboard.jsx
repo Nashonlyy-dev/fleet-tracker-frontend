@@ -17,7 +17,7 @@ const truckIcon = new L.DivIcon({
     iconSize: [20, 20],
 });
 
-const socket = io('http://localhost:3000');
+const socket = io('fleet-tracker-backend-production.up.railway.app');
 
 const ChangeView = ({ center }) => {
     const map = useMap();
